@@ -26,6 +26,8 @@ def add_user():
 @app.route('/users/<string:username>', methods=['GET'])
 def get_user_data(username):
     user_data = connector.get_user(username)
+    if not user_data:
+        flask.abort(404)
     return flask.jsonify({'user': {
         'login': user_data[0],
         'email': user_data[1],
